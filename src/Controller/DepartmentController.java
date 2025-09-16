@@ -34,6 +34,25 @@ public class DepartmentController {
                     JOptionPane.PLAIN_MESSAGE       // Тип диалогового окна
             );
 
+            // обработчик кнопки "Удалить отдел"
+            view.getRemoveButton().addActionListener(eventRemove  -> {
+                Department selected = view.getSelectedDepartment();
+                if (selected != null) {
+                    int confirm = JOptionPane.showConfirmDialog(
+                            view,
+                            "Удалить отдел: " + selected.getNameCommunity() + "?",
+                            "Подтверждение",
+                            JOptionPane.YES_NO_OPTION
+                    );
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        service.removeDepartment(selected);
+                        view.removeDepartmentFromList(selected);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(view, "Выберите отдел для удаления!");
+                }
+            });
+
             // Проверяем, что пользователь ввёл непустое значение
             if (name != null && !name.trim().isEmpty()) {
                 // Добавляем новый отдел в сервис (бизнес-логика)

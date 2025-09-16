@@ -12,6 +12,10 @@ public class DepartmentService {
         departmentList.add(new Department(nameCommunity));
     }
 
+    public void removeDepartment(Department department) {
+        departmentList.remove(department);
+    }
+
     public List<Department> getAllDepartments() {
         return departmentList;
     }
