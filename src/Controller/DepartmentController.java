@@ -62,5 +62,34 @@ public class DepartmentController {
                 view.addDepartmentToList(new Department(name));
             }
         });
+
+        view.getEditButton().addActionListener(e -> {
+            Department selected = view.getSelectedDepartment();
+            if (selected != null) {
+                String newName = JOptionPane.showInputDialog(
+                        view,
+                        "Введите новое название отдела:",
+                        selected.getNameCommunity()
+                );
+
+                if (newName != null && !newName.trim().isEmpty()) {
+                    Department updated = new Department(newName);
+
+                    // Обновляем список
+                    view.updateDepartmentInList(selected, updated);
+
+                    // Обновляем данные в сервисе
+                    service.getAllDepartments().remove(selected);
+                    service.getAllDepartments().add(updated);
+                }
+            } else {
+                JOptionPane.showMessageDialog(
+                        view,
+                        "Выберите отдел для редактирования!",
+                        "Ошибка",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            }
+        });
     }
 }

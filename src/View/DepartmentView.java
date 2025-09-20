@@ -10,11 +10,12 @@ public class DepartmentView extends JFrame {
     private final JList<Department> departmentList = new JList<>(listModel);
 
     private final JButton addButton = new JButton("Добавить отдел");
-    private final JButton removeButton = new JButton("Удалить отдел"); // ← объявляем кнопку
+    private final JButton removeButton = new JButton("Удалить отдел");
+    private final JButton editButton = new JButton("Редактировать отдел");
 
     public DepartmentView() {
         setTitle("Список отделов");
-        setSize(400, 300);
+        setSize(450, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -24,6 +25,7 @@ public class DepartmentView extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addButton);
+        buttonPanel.add(editButton);
         buttonPanel.add(removeButton); // ← теперь кнопка есть
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -48,6 +50,19 @@ public class DepartmentView extends JFrame {
     // Работа кнопки "Удалить"
     public JButton getRemoveButton() {
         return removeButton;
+    }
+
+    // Обновление названия отдела
+    public void updateDepartmentInList(Department oldDept, Department newDept) {
+        int index = listModel.indexOf(oldDept);
+        if (index >= 0) {
+            listModel.set(index, newDept);
+        }
+    }
+
+    // Работа кнопки "Редактировать"
+    public JButton getEditButton() {
+        return editButton;
     }
 
     // Получить выделенный отдел
